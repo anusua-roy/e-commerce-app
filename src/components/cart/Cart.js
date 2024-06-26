@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../../App";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems, addToCart, handleDecrease, deleteFromCart } =
@@ -21,11 +22,13 @@ const Cart = () => {
                 className="flex items-center justify-between mb-4"
               >
                 <div className="flex items-center">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-16 h-16 rounded-md mr-4"
-                  />
+                  <Link to={`/products/${item.id}`}>
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-16 h-16 rounded-md mr-4"
+                    />
+                  </Link>
                   <div>
                     <h2 className="text-xl font-semibold">{item.title}</h2>
                     <p className="text-gray-500">₹{item.price}</p>

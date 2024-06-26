@@ -9,6 +9,7 @@ import { createContext, useEffect, useState } from "react";
 import Toast from "./components/toast/Toast";
 import Footer from "./components/footer/Footer";
 import Loading from "./components/loading/Loading";
+import HomePage from "./components/homepage/Homepage";
 
 export const AppContext = createContext();
 
@@ -137,6 +138,7 @@ function App() {
           <div className="flex-grow">
             <Routes>
               <Route path="/" element={<ProductsList />} />
+              <Route path="/categories" element={<HomePage />} />
               <Route path="/products" element={<ProductsList />} />
               <Route path="/products/:productId" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
