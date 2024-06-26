@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAllProducts } from "../../services/products.service";
 import { Link } from "react-router-dom";
 import AddToCartButton from "../add-to-cart-btn/AddToCartButton";
+import { AppContext } from "../../App";
 
 const ProductsList = () => {
+  const { setIsLoading } = useContext(AppContext);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -11,8 +13,10 @@ const ProductsList = () => {
   }, []);
 
   const fetchData = async () => {
+    setIsLoading(true);
     const res = await getAllProducts();
     setProducts(res);
+    setIsLoading(false);
   };
 
   return (
@@ -27,15 +31,15 @@ const ProductsList = () => {
               key={product.id}
               className="flex flex-col bg-white p-4 rounded-lg shadow-md h-80"
             >
-              
-                <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md mb-4">
-                  <Link to={`/products/${product.id}`}>
+              <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md mb-4">
+                <Link to={`/products/${product.id}`}>
                   <img
                     src={product.image}
                     alt={product.title}
                     className="object-contain w-full h-full"
-                  /></Link>
-                </div>
+                  />
+                </Link>
+              </div>
               <div className="flex-1 flex flex-col justify-between">
                 <h2 className="text-xl font-semibold truncate overflow-ellipsis">
                   {product.title}

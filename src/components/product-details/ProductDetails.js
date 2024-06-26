@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getProduct } from "../../services/products.service";
 import AddToCartButton from "../add-to-cart-btn/AddToCartButton";
+import { AppContext } from "../../App";
 
 const ProductDetails = () => {
+  const { setIsLoading } = useContext(AppContext);
   const [product, setProduct] = useState();
   const { productId } = useParams();
 
@@ -12,8 +14,10 @@ const ProductDetails = () => {
   }, []);
 
   const fetchData = async () => {
+    setIsLoading(true);
     const res = await getProduct(productId);
     setProduct(res);
+    setIsLoading(false);
   };
   if (!product) {
     return <div className="text-center mt-8">Product not found</div>;
